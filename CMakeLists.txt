@@ -18,8 +18,6 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../dist)
 
 add_subdirectory(vendor/Clipper2/CPP)
 
-# C Bindings
-
 file(GLOB_RECURSE SOURCE_FILES src/*.cpp)
 
 add_library(Clippy SHARED ${SOURCE_FILES})
