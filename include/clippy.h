@@ -11,8 +11,8 @@ void c_append_subject(const int64_t *coords, size_t len);
 void c_clear_clips(void);
 void c_append_clip(const int64_t *coords, size_t len);
 
-size_t c_union(void);
-size_t c_difference(void);
+size_t c_compute_union(void);
+size_t c_compute_difference(void);
 
 void c_clear_solution(void);
 size_t c_get_solution_len();

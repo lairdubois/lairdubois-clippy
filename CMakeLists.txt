@@ -8,13 +8,13 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CLIPPER2_UTILS OFF)
 set(CLIPPER2_EXAMPLES OFF)
 set(CLIPPER2_TESTS OFF)
-set(CLIPPER2_USINGZ "OFF" CACHE STRING "Preempt cache default of USINGZ (only binding 2d)")
+set(CLIPPER2_USINGZ OFF)
 add_definitions(-D_HAS_EXCEPTIONS=0) # disable exceptions for STL
 
 option(BUILD_SHARED_LIBS ON)
 add_compile_options(-fPIC)
 
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../dist)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/dist)
 
 add_subdirectory(Clipper2)
 
