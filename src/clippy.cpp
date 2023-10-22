@@ -10,10 +10,6 @@ extern "C" {
 
 Paths64 subjects, clips, solution;
 
-void c_version(void) {
-
-}
-
 void c_clear_subjects(void) {
   subjects.clear();
 }
@@ -40,12 +36,12 @@ void c_append_clip(const int64_t *coords, size_t len) {
   clips.push_back(MakePath(list));
 }
 
-size_t c_union(void) {
+size_t c_compute_union(void) {
   solution = Union(subjects, clips, FillRule::NonZero);
   return solution.size();
 }
 
-size_t c_difference(void) {
+size_t c_compute_difference(void) {
   solution = Difference(subjects, clips, FillRule::NonZero);
   return solution.size();
 }
@@ -66,7 +62,7 @@ int64_t* c_get_solution_path_coords_at(int index) {
 
   Path64 path = solution[index];
 
-  int64_t *coords = (int64_t *)malloc(sizeof(int64_t) * path.size() * 2);
+  auto *coords = (int64_t *)malloc(sizeof(int64_t) * path.size() * 2);
   int i = 0;
   for (Point64 point : path) {
     coords[i] = point.x;
