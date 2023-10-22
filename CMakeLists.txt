@@ -16,7 +16,7 @@ add_compile_options(-fPIC)
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../dist)
 
-add_subdirectory(vendor/Clipper2/CPP)
+add_subdirectory(Clipper2)
 
 file(GLOB_RECURSE SOURCE_FILES src/*.cpp)
 
