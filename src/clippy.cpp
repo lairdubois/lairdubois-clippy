@@ -10,6 +10,10 @@ extern "C" {
 
 Paths64 subjects, clips, solution;
 
+void c_version(void) {
+
+}
+
 void c_clear_subjects(void) {
   subjects.clear();
 }
