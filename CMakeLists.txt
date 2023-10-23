@@ -60,8 +60,8 @@ endif()
 
 set_target_properties(Clippy
     PROPERTIES
-    LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/dist
-    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/dist
+    LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/dist
+    RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/dist
 )
 
 target_link_libraries(Clippy PRIVATE Clipper2)
