@@ -64,11 +64,13 @@ DLL_EXPORTS int64_t* c_get_solution_path_coords_at(int index) {
   Path64 path = solution[index];
 
   auto *coords = (int64_t *)malloc(sizeof(int64_t) * path.size() * 2);
-  int i = 0;
-  for (Point64 point : path) {
-    coords[i] = point.x;
-    coords[i + 1] = point.y;
-    i = i + 2;
+  if (coords != NULL) {
+      int i = 0;
+      for (Point64 point : path) {
+          coords[i] = point.x;
+          coords[i + 1] = point.y;
+          i = i + 2;
+      }
   }
 
   return coords;
