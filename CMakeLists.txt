@@ -10,11 +10,11 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 option(BUILD_SHARED_LIBS ON)
 
 if(WIN32)
-    add_compile_definitions(LIBCLIPPY_EXPORTS)
+    add_compile_definitions(LIBCLIPPY_EXPORTS=__declspec(dllexport))
 else()
+    add_compile_definitions(LIBCLIPPY_EXPORTS=)
     add_compile_options(-fPIC)
 endif()
-
 
 # Clipper2 options
 set(CLIPPER2_UTILS OFF)

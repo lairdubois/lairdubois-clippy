@@ -12,11 +12,11 @@ extern "C" {
 
 Paths64 subjects, clips, solution;
 
-LIBCLIPPY_API void c_clear_subjects(void) {
+LIBCLIPPY_EXPORTS void c_clear_subjects(void) {
   subjects.clear();
 }
 
-LIBCLIPPY_API void c_append_subject(const int64_t *coords, size_t len) {
+LIBCLIPPY_EXPORTS void c_append_subject(const int64_t *coords, size_t len) {
 
   std::vector<int64_t> list;
   list.reserve(len);
@@ -25,11 +25,11 @@ LIBCLIPPY_API void c_append_subject(const int64_t *coords, size_t len) {
   subjects.push_back(MakePath(list));
 }
 
-LIBCLIPPY_API void c_clear_clips(void) {
+LIBCLIPPY_EXPORTS void c_clear_clips(void) {
   clips.clear();
 }
 
-LIBCLIPPY_API void c_append_clip(const int64_t *coords, size_t len) {
+LIBCLIPPY_EXPORTS void c_append_clip(const int64_t *coords, size_t len) {
 
   std::vector<int64_t> list;
   list.reserve(len);
@@ -38,29 +38,29 @@ LIBCLIPPY_API void c_append_clip(const int64_t *coords, size_t len) {
   clips.push_back(MakePath(list));
 }
 
-LIBCLIPPY_API size_t c_compute_union(void) {
+LIBCLIPPY_EXPORTS size_t c_compute_union(void) {
   solution = Union(subjects, clips, FillRule::NonZero);
   return solution.size();
 }
 
-LIBCLIPPY_API size_t c_compute_difference(void) {
+LIBCLIPPY_EXPORTS size_t c_compute_difference(void) {
   solution = Difference(subjects, clips, FillRule::NonZero);
   return solution.size();
 }
 
-LIBCLIPPY_API void c_clear_solution(void) {
+LIBCLIPPY_EXPORTS void c_clear_solution(void) {
   solution.clear();
 }
 
-LIBCLIPPY_API size_t c_get_solution_len() {
+LIBCLIPPY_EXPORTS size_t c_get_solution_len() {
   return solution.size();
 }
 
-LIBCLIPPY_API size_t c_get_solution_path_len_at(int index) {
+LIBCLIPPY_EXPORTS size_t c_get_solution_path_len_at(int index) {
   return solution[index].size();
 }
 
-LIBCLIPPY_API int64_t* c_get_solution_path_coords_at(int index) {
+LIBCLIPPY_EXPORTS int64_t* c_get_solution_path_coords_at(int index) {
 
   Path64 path = solution[index];
 
@@ -75,10 +75,9 @@ LIBCLIPPY_API int64_t* c_get_solution_path_coords_at(int index) {
   return coords;
 }
 
-LIBCLIPPY_API void c_free_coords(const int64_t* coords) {
+LIBCLIPPY_EXPORTS void c_free_coords(const int64_t* coords) {
     free((void *) coords);
 }
-
 
 #ifdef __cplusplus
 }
