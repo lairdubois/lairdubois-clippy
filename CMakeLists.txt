@@ -8,7 +8,13 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 option(BUILD_SHARED_LIBS ON)
-add_compile_options(-fPIC)
+
+if(WIN32)
+    add_compile_definitions(LIBCLIPPY_EXPORTS)
+else()
+    add_compile_options(-fPIC)
+endif()
+
 
 # Clipper2 options
 set(CLIPPER2_UTILS OFF)
