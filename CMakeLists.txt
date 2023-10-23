@@ -10,9 +10,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 option(BUILD_SHARED_LIBS ON)
 
 if(WIN32)
-    add_compile_definitions(LIBCLIPPY_EXPORTS=__declspec(dllexport))
+    add_compile_definitions(LIBCLIPPY_EXPORTS)
 else()
-    add_compile_definitions(LIBCLIPPY_EXPORTS=)
     add_compile_options(-fPIC)
 endif()
 
