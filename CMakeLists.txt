@@ -20,7 +20,20 @@ add_subdirectory(Clipper2)
 
 file(GLOB_RECURSE SOURCE_FILES src/*.cpp)
 
+if(MSVC)
+    include(GenerateExportHeader)
+endif()
+
 add_library(Clippy SHARED ${SOURCE_FILES})
+
+if(MSVC)
+    generate_export_header(Clippy
+            BASE_NAME Clippy
+            EXPORT_MACRO_NAME Clippy_EXPORT
+            EXPORT_FILE_NAME Clippy_Export.h
+            STATIC_DEFINE Clippy_BUILT_AS_STATIC
+    )
+endif()
 
 target_link_libraries(Clippy PRIVATE Clipper2)
 target_include_directories(Clippy PUBLIC ${PROJECT_SOURCE_DIR}/include)
