@@ -20,7 +20,7 @@ jobs:
       # To add more build types (Release, Debug, RelWithDebInfo, etc.) customize the build_type list.
       matrix:
         os: [windows-latest, macos-latest]
-        build_type: [Release]
+        build_type: [RelMinSize]
         c_compiler: [clang, cl]
         include:
           - os: windows-latest
@@ -43,7 +43,7 @@ jobs:
       id: strings
       shell: bash
       run: |
-        echo "build-output-dir=${{ github.workspace }}/dist" >> "$GITHUB_OUTPUT"
+        echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
@@ -61,5 +61,5 @@ jobs:
 
     - uses: actions/upload-artifact@v3
       with:
-        name: my-artifact
-        path: ${{ github.workspace }}/dist
+        name: ${{ matrix.os }}-build-artifact
+        path: ${{ github.workspace }}/build
