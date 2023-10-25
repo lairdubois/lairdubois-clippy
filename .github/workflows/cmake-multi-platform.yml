@@ -20,7 +20,7 @@ jobs:
       # To add more build types (Release, Debug, RelWithDebInfo, etc.) customize the build_type list.
       matrix:
         os: [windows-latest, macos-latest]
-        build_type: [RelMinSize]
+        build_type: [Release]
         c_compiler: [clang, cl]
         include:
           - os: windows-latest
@@ -36,7 +36,7 @@ jobs:
             c_compiler: cl
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Set reusable strings
       # Turn repeated input strings (such as the build output directory) into step outputs. These step outputs can be used throughout the workflow file.
