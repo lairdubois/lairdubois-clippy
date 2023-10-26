@@ -80,8 +80,12 @@ DLL_EXPORTS int64_t* c_get_solution_cpath_at(int index) {
   return cpath;
 }
 
-DLL_EXPORTS bool c_is_ccw_cpath(const int64_t* cpath, size_t len) {
+DLL_EXPORTS bool c_is_cpath_positive(const int64_t* cpath, size_t len) {
   return IsPositive(MakePath64(cpath, len));
+}
+
+DLL_EXPORTS double c_get_cpath_area(const int64_t* cpath, size_t len) {
+  return Area(MakePath64(cpath, len));
 }
 
 DLL_EXPORTS void c_free_cpath(const int64_t* cpath) {
