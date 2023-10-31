@@ -36,26 +36,35 @@ DLL_EXPORTS void c_append_clip(const int64_t *cpath, size_t len) {
   clips.push_back(MakePath64(cpath, len));
 }
 
-DLL_EXPORTS size_t c_compute_union(void) {
-  solution = Union(subjects, clips, FillRule::NonZero);
-  return solution.size();
+DLL_EXPORTS void c_compute_union(void) {
+  Clipper64 clipper;
+  clipper.PreserveCollinear = false;
+  clipper.AddSubject(subjects);
+  clipper.AddClip(clips);
+  clipper.Execute(ClipType::Union, FillRule::NonZero, solution);
 }
 
-DLL_EXPORTS size_t c_compute_difference(void) {
-  solution = Difference(subjects, clips, FillRule::NonZero);
-  return solution.size();
+DLL_EXPORTS void c_compute_difference(void) {
+  Clipper64 clipper;
+  clipper.PreserveCollinear = false;
+  clipper.AddSubject(subjects);
+  clipper.AddClip(clips);
+  clipper.Execute(ClipType::Difference, FillRule::NonZero, solution);
 }
 
-DLL_EXPORTS size_t c_compute_intersection(void) {
-  solution = Difference(subjects, clips, FillRule::NonZero);
-  return solution.size();
+DLL_EXPORTS void c_compute_intersection(void) {
+  Clipper64 clipper;
+  clipper.PreserveCollinear = false;
+  clipper.AddSubject(subjects);
+  clipper.AddClip(clips);
+  clipper.Execute(ClipType::Intersection, FillRule::NonZero, solution);
 }
 
 DLL_EXPORTS void c_clear_solution(void) {
   solution.clear();
 }
 
-DLL_EXPORTS size_t c_get_solution_len() {
+DLL_EXPORTS size_t c_get_solution_len(void) {
   return solution.size();
 }
 
