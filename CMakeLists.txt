@@ -26,7 +26,7 @@ set(CLIPPER2_TESTS OFF)
 set(CLIPPER2_USINGZ "OFF" CACHE STRING "Preempt cache default of USINGZ (only binding 2d)")
 add_definitions(-D_HAS_EXCEPTIONS=0) # disable exceptions for STL
 
-add_subdirectory(Clipper2)
+add_subdirectory(vendor/Clipper2/CPP)
 
 # Clippy headers
 set(CLIPPY_HEADERS
