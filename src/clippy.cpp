@@ -101,6 +101,10 @@ DLL_EXPORTS void c_free_cpath(const int64_t* cpath) {
   free((void *) cpath);
 }
 
+DLL_EXPORTS char * c_version(void) {
+  return (char *)CLIPPER2_VERSION;
+}
+
 #ifdef __cplusplus
 }
 #endif

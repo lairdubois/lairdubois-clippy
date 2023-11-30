@@ -32,6 +32,8 @@ DLL_EXPORTS double c_get_cpath_area(const int64_t* cpath, size_t len);
 
 DLL_EXPORTS void c_free_cpath(const int64_t* cpath);
 
+DLL_EXPORTS char* c_version(void);
+
 #ifdef __cplusplus
 }
 #endif
