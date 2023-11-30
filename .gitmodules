@@ -1,3 +1,4 @@
 [submodule "vendor/Clipper2"]
 	path = vendor/Clipper2
 	url = https://github.com/AngusJohnson/Clipper2.git
+  branch = main
