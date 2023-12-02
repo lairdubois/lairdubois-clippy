@@ -28,6 +28,7 @@ DLL_EXPORTS void c_append_subject(const int64_t *cpath, size_t len) {
   subjects.push_back(MakePath64(cpath, len));
 }
 
+
 DLL_EXPORTS void c_clear_clips(void) {
   clips.clear();
 }
@@ -35,6 +36,7 @@ DLL_EXPORTS void c_clear_clips(void) {
 DLL_EXPORTS void c_append_clip(const int64_t *cpath, size_t len) {
   clips.push_back(MakePath64(cpath, len));
 }
+
 
 DLL_EXPORTS void c_compute_union(void) {
   Clipper64 clipper;
@@ -59,6 +61,18 @@ DLL_EXPORTS void c_compute_intersection(void) {
   clipper.AddClip(clips);
   clipper.Execute(ClipType::Intersection, FillRule::NonZero, solution);
 }
+
+DLL_EXPORTS void c_compute_outers(void) {
+  PolyTree64 polytree;
+  Clipper64 clipper;
+  clipper.PreserveCollinear(false);
+  clipper.AddSubject(subjects);
+  clipper.Execute(ClipType::Union, FillRule::NonZero, polytree);
+  for (const auto& polypath : polytree) {
+    solution.push_back(polypath->Polygon());
+  }
+}
+
 
 DLL_EXPORTS void c_clear_solution(void) {
   solution.clear();
@@ -89,6 +103,7 @@ DLL_EXPORTS int64_t* c_get_solution_cpath_at(int index) {
   return cpath;
 }
 
+
 DLL_EXPORTS int c_is_cpath_positive(const int64_t* cpath, size_t len) {
   return IsPositive(MakePath64(cpath, len)) ? 1 : 0;
 }
@@ -97,9 +112,11 @@ DLL_EXPORTS double c_get_cpath_area(const int64_t* cpath, size_t len) {
   return Area(MakePath64(cpath, len));
 }
 
+
 DLL_EXPORTS void c_free_cpath(const int64_t* cpath) {
   free((void *) cpath);
 }
+
 
 DLL_EXPORTS char* c_version(void) {
   return (char *)CLIPPER2_VERSION;
