@@ -188,19 +188,19 @@ DLL_EXPORTS void c_append_clip(const int64_t *cpath) {
 }
 
 
-DLL_EXPORTS void c_compute_union(void) {
+DLL_EXPORTS void c_execute_union(void) {
   ExecuteBooleanOp(ClipType::Union, subjects, clips, paths_solution);
 }
 
-DLL_EXPORTS void c_compute_difference(void) {
+DLL_EXPORTS void c_execute_difference(void) {
   ExecuteBooleanOp(ClipType::Difference, subjects, clips, paths_solution);
 }
 
-DLL_EXPORTS void c_compute_intersection(void) {
+DLL_EXPORTS void c_execute_intersection(void) {
   ExecuteBooleanOp(ClipType::Intersection, subjects, clips, paths_solution);
 }
 
-DLL_EXPORTS void c_compute_polytree(void) {
+DLL_EXPORTS void c_execute_polytree(void) {
   ExecuteBooleanOp(ClipType::Union, subjects, clips, polytree_solution);
 }
 
