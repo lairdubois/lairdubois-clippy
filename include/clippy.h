@@ -21,13 +21,12 @@ DLL_EXPORTS void c_append_clip(const int64_t *cpath);
 DLL_EXPORTS void c_compute_union(void);
 DLL_EXPORTS void c_compute_difference(void);
 DLL_EXPORTS void c_compute_intersection(void);
-DLL_EXPORTS void c_compute_outers(void);
-DLL_EXPORTS void c_compute_tree(void);
+DLL_EXPORTS void c_compute_polytree(void);
 
-DLL_EXPORTS void c_clear_solution(void);
-DLL_EXPORTS int64_t* c_get_solution(void);
-DLL_EXPORTS void c_clear_tree_solution(void);
-DLL_EXPORTS int64_t* c_get_tree_solution(void);
+DLL_EXPORTS void c_clear_paths_solution(void);
+DLL_EXPORTS int64_t* c_get_paths_solution(void);
+DLL_EXPORTS void c_clear_polytree_solution(void);
+DLL_EXPORTS int64_t* c_get_polytree_solution(void);
 
 DLL_EXPORTS int c_is_cpath_positive(const int64_t* cpath);
 DLL_EXPORTS double c_get_cpath_area(const int64_t* cpath);

@@ -146,28 +146,29 @@ static int64_t* CreateCPolyTree(const PolyTree64 &polytree) {
 
 // Execution
 
-static void ExecuteBooleanOp(ClipType clip_type, Paths64 &subjects, Paths64 &clips, Paths64 &solution) {
+static void ExecuteBooleanOp(ClipType clip_type, Paths64 &subjects, Paths64 &clips, Paths64 &paths_solution) {
   Clipper64 clipper;
   clipper.PreserveCollinear(false);
   clipper.AddSubject(subjects);
   clipper.AddClip(clips);
-  clipper.Execute(clip_type, FillRule::NonZero, solution);
+  clipper.Execute(clip_type, FillRule::NonZero, paths_solution);
 }
 
-static void ExecuteBooleanOp(ClipType clip_type, Paths64 &subjects, Paths64 &clips, PolyTree64 &tree_solution) {
+static void ExecuteBooleanOp(ClipType clip_type, Paths64 &subjects, Paths64 &clips, PolyTree64 &polytree_solution) {
   Clipper64 clipper;
   clipper.PreserveCollinear(false);
   clipper.AddSubject(subjects);
   clipper.AddClip(clips);
-  clipper.Execute(clip_type, FillRule::NonZero, tree_solution);
+  clipper.Execute(clip_type, FillRule::NonZero, polytree_solution);
 }
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-Paths64 subjects, clips, solution;
-PolyTree64 tree_solution;
+Paths64 subjects, clips;
+Paths64 paths_solution;
+PolyTree64 polytree_solution;
 
 DLL_EXPORTS void c_clear_subjects(void) {
   subjects.clear();
@@ -188,44 +189,36 @@ DLL_EXPORTS void c_append_clip(const int64_t *cpath) {
 
 
 DLL_EXPORTS void c_compute_union(void) {
-  ExecuteBooleanOp(ClipType::Union, subjects, clips, solution);
+  ExecuteBooleanOp(ClipType::Union, subjects, clips, paths_solution);
 }
 
 DLL_EXPORTS void c_compute_difference(void) {
-  ExecuteBooleanOp(ClipType::Difference, subjects, clips, solution);
+  ExecuteBooleanOp(ClipType::Difference, subjects, clips, paths_solution);
 }
 
 DLL_EXPORTS void c_compute_intersection(void) {
-  ExecuteBooleanOp(ClipType::Intersection, subjects, clips, solution);
+  ExecuteBooleanOp(ClipType::Intersection, subjects, clips, paths_solution);
 }
 
-DLL_EXPORTS void c_compute_outers(void) {
-  PolyTree64 polytree;
-  ExecuteBooleanOp(ClipType::Union, subjects, clips, polytree);
-  for (const auto& polypath : polytree) {
-    solution.push_back(polypath->Polygon());
-  }
-}
-
-DLL_EXPORTS void c_compute_tree(void) {
-  ExecuteBooleanOp(ClipType::Union, subjects, clips, tree_solution);
+DLL_EXPORTS void c_compute_polytree(void) {
+  ExecuteBooleanOp(ClipType::Union, subjects, clips, polytree_solution);
 }
 
 
-DLL_EXPORTS void c_clear_solution(void) {
-  solution.clear();
+DLL_EXPORTS void c_clear_paths_solution(void) {
+  paths_solution.clear();
 }
 
-DLL_EXPORTS int64_t* c_get_solution(void) {
-  return CreateCPaths(solution);
+DLL_EXPORTS int64_t* c_get_paths_solution(void) {
+  return CreateCPaths(paths_solution);
 }
 
-DLL_EXPORTS void c_clear_tree_solution(void) {
-  tree_solution.Clear();
+DLL_EXPORTS void c_clear_polytree_solution(void) {
+  polytree_solution.Clear();
 }
 
-DLL_EXPORTS int64_t* c_get_tree_solution(void) {
-  return CreateCPolyTree(tree_solution);
+DLL_EXPORTS int64_t* c_get_polytree_solution(void) {
+  return CreateCPolyTree(polytree_solution);
 }
 
 
