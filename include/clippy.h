@@ -13,7 +13,8 @@ extern "C" {
 #endif
 
 DLL_EXPORTS void c_clear_subjects(void);
-DLL_EXPORTS void c_append_subject(const int64_t *cpath);
+DLL_EXPORTS void c_append_closed_subject(const int64_t *cpath);
+DLL_EXPORTS void c_append_opened_subject(const int64_t *cpath);
 
 DLL_EXPORTS void c_clear_clips(void);
 DLL_EXPORTS void c_append_clip(const int64_t *cpath);
@@ -24,7 +25,8 @@ DLL_EXPORTS void c_execute_intersection(void);
 DLL_EXPORTS void c_execute_polytree(void);
 
 DLL_EXPORTS void c_clear_paths_solution(void);
-DLL_EXPORTS int64_t* c_get_paths_solution(void);
+DLL_EXPORTS int64_t* c_get_closed_paths_solution(void);
+DLL_EXPORTS int64_t* c_get_opened_paths_solution(void);
 DLL_EXPORTS void c_clear_polytree_solution(void);
 DLL_EXPORTS int64_t* c_get_polytree_solution(void);
 
