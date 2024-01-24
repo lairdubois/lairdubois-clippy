@@ -146,20 +146,20 @@ static int64_t* CreateCPolyTree(const PolyTree64 &polytree) {
 
 // Execution
 
-static void ExecuteBooleanOp(ClipType clip_type, Paths64 &closed_subjects, Paths64 &open_subjects, Paths64 &clips, Paths64 &closed_paths_solution, Paths64 &opened_paths_solution) {
+static void ExecuteBooleanOp(ClipType clip_type, Paths64 &closed_subjects, Paths64 &opened_subjects, Paths64 &clips, Paths64 &closed_paths_solution, Paths64 &opened_paths_solution) {
   Clipper64 clipper;
   clipper.PreserveCollinear(false);
   clipper.AddSubject(closed_subjects);
-  clipper.AddOpenSubject(open_subjects);
+  clipper.AddOpenSubject(opened_subjects);
   clipper.AddClip(clips);
   clipper.Execute(clip_type, FillRule::NonZero, closed_paths_solution, opened_paths_solution);
 }
 
-static void ExecuteBooleanOp(ClipType clip_type, Paths64 &closed_subjects, Paths64 &open_subjects, Paths64 &clips, PolyTree64 &polytree_solution, Paths64 &opened_paths_solution) {
+static void ExecuteBooleanOp(ClipType clip_type, Paths64 &closed_subjects, Paths64 &opened_subjects, Paths64 &clips, PolyTree64 &polytree_solution, Paths64 &opened_paths_solution) {
   Clipper64 clipper;
   clipper.PreserveCollinear(false);
   clipper.AddSubject(closed_subjects);
-  clipper.AddOpenSubject(open_subjects);
+  clipper.AddOpenSubject(opened_subjects);
   clipper.AddClip(clips);
   clipper.Execute(clip_type, FillRule::NonZero, polytree_solution, opened_paths_solution);
 }
