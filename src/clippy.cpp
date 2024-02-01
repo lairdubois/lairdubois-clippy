@@ -181,7 +181,7 @@ DLL_EXPORTS void c_append_closed_subject(const int64_t *cpath) {
   closed_subjects.push_back(ConvertCPath(cpath));
 }
 
-DLL_EXPORTS void c_append_opened_subject(const int64_t *cpath) {
+DLL_EXPORTS void c_append_open_subject(const int64_t *cpath) {
   opened_subjects.push_back(ConvertCPath(cpath));
 }
 
@@ -221,7 +221,7 @@ DLL_EXPORTS int64_t* c_get_closed_paths_solution(void) {
   return CreateCPaths(closed_paths_solution);
 }
 
-DLL_EXPORTS int64_t* c_get_opened_paths_solution(void) {
+DLL_EXPORTS int64_t* c_get_open_paths_solution(void) {
   return CreateCPaths(opened_paths_solution);
 }
 
