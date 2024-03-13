@@ -146,35 +146,35 @@ static int64_t* CreateCPolyTree(const PolyTree64 &polytree) {
 
 // Execution
 
-static void ExecuteBooleanOp(ClipType clip_type, Paths64 &closed_subjects, Paths64 &opened_subjects, Paths64 &clips, Paths64 &closed_paths_solution, Paths64 &opened_paths_solution) {
+static void ExecuteBooleanOp(ClipType clip_type, Paths64 &closed_subjects, Paths64 &open_subjects, Paths64 &clips, Paths64 &closed_paths_solution, Paths64 &open_paths_solution) {
   Clipper64 clipper;
   clipper.PreserveCollinear(false);
   clipper.AddSubject(closed_subjects);
-  clipper.AddOpenSubject(opened_subjects);
+  clipper.AddOpenSubject(open_subjects);
   clipper.AddClip(clips);
-  clipper.Execute(clip_type, FillRule::NonZero, closed_paths_solution, opened_paths_solution);
+  clipper.Execute(clip_type, FillRule::NonZero, closed_paths_solution, open_paths_solution);
 }
 
-static void ExecuteBooleanOp(ClipType clip_type, Paths64 &closed_subjects, Paths64 &opened_subjects, Paths64 &clips, PolyTree64 &polytree_solution, Paths64 &opened_paths_solution) {
+static void ExecuteBooleanOp(ClipType clip_type, Paths64 &closed_subjects, Paths64 &open_subjects, Paths64 &clips, PolyTree64 &polytree_solution, Paths64 &open_paths_solution) {
   Clipper64 clipper;
   clipper.PreserveCollinear(false);
   clipper.AddSubject(closed_subjects);
-  clipper.AddOpenSubject(opened_subjects);
+  clipper.AddOpenSubject(open_subjects);
   clipper.AddClip(clips);
-  clipper.Execute(clip_type, FillRule::NonZero, polytree_solution, opened_paths_solution);
+  clipper.Execute(clip_type, FillRule::NonZero, polytree_solution, open_paths_solution);
 }
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-Paths64 closed_subjects, opened_subjects, clips;
-Paths64 closed_paths_solution, opened_paths_solution;
+Paths64 closed_subjects, open_subjects, clips;
+Paths64 closed_paths_solution, open_paths_solution;
 PolyTree64 polytree_solution;
 
 DLL_EXPORTS void c_clear_subjects(void) {
   closed_subjects.clear();
-  opened_subjects.clear();
+  open_subjects.clear();
 }
 
 DLL_EXPORTS void c_append_closed_subject(const int64_t *cpath) {
@@ -182,7 +182,7 @@ DLL_EXPORTS void c_append_closed_subject(const int64_t *cpath) {
 }
 
 DLL_EXPORTS void c_append_open_subject(const int64_t *cpath) {
-  opened_subjects.push_back(ConvertCPath(cpath));
+  open_subjects.push_back(ConvertCPath(cpath));
 }
 
 
@@ -196,25 +196,25 @@ DLL_EXPORTS void c_append_clip(const int64_t *cpath) {
 
 
 DLL_EXPORTS void c_execute_union(void) {
-  ExecuteBooleanOp(ClipType::Union, closed_subjects, opened_subjects, clips, closed_paths_solution, opened_paths_solution);
+  ExecuteBooleanOp(ClipType::Union, closed_subjects, open_subjects, clips, closed_paths_solution, open_paths_solution);
 }
 
 DLL_EXPORTS void c_execute_difference(void) {
-  ExecuteBooleanOp(ClipType::Difference, closed_subjects, opened_subjects, clips, closed_paths_solution, opened_paths_solution);
+  ExecuteBooleanOp(ClipType::Difference, closed_subjects, open_subjects, clips, closed_paths_solution, open_paths_solution);
 }
 
 DLL_EXPORTS void c_execute_intersection(void) {
-  ExecuteBooleanOp(ClipType::Intersection, closed_subjects, opened_subjects, clips, closed_paths_solution, opened_paths_solution);
+  ExecuteBooleanOp(ClipType::Intersection, closed_subjects, open_subjects, clips, closed_paths_solution, open_paths_solution);
 }
 
 DLL_EXPORTS void c_execute_polytree(void) {
-  ExecuteBooleanOp(ClipType::Union, closed_subjects, opened_subjects, clips, polytree_solution, opened_paths_solution);
+  ExecuteBooleanOp(ClipType::Union, closed_subjects, open_subjects, clips, polytree_solution, open_paths_solution);
 }
 
 
 DLL_EXPORTS void c_clear_paths_solution(void) {
   closed_paths_solution.clear();
-  opened_paths_solution.clear();
+  open_paths_solution.clear();
 }
 
 DLL_EXPORTS int64_t* c_get_closed_paths_solution(void) {
@@ -222,7 +222,7 @@ DLL_EXPORTS int64_t* c_get_closed_paths_solution(void) {
 }
 
 DLL_EXPORTS int64_t* c_get_open_paths_solution(void) {
-  return CreateCPaths(opened_paths_solution);
+  return CreateCPaths(open_paths_solution);
 }
 
 DLL_EXPORTS void c_clear_polytree_solution(void) {
